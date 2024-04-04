@@ -36,4 +36,11 @@ jobs:
 
       - name: Build
         shell: bash
-        run: sudo ./live.sh 
+        run: sudo ./livecd-rootfs.sh && sudo ./build.sh 
+        
+      - name: Upload
+        uses: actions/upload-artifact@v4.3.1
+        with:
+          name: ubuntu-24.04-beta-preinstalled-server-arm64.rootfs
+          path: ./build/ubuntu-24.04-beta-preinstalled-server-arm64.rootfs.tar.xz
+          if-no-files-found: error
