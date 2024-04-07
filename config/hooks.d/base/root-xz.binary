@@ -13,4 +13,4 @@ rootfs_dir=rootfs.dir
 
 cp $rootfs_dir.manifest livecd.ubuntu-cpc.rootfs.manifest
 cp $rootfs_dir.filelist livecd.ubuntu-cpc.rootfs.filelist
-(cd $rootfs_dir/ &&  tar -c --sort=name --xattrs *) | xz -3 -T0 > livecd.ubuntu-cpc.rootfs.tar.xz
+(cd $rootfs_dir/ &&  XZ_OPT="-3 -T0" tar -c --sort=name --xattrs *) | xz -3 -T0 > livecd.ubuntu-cpc.rootfs.tar.xz

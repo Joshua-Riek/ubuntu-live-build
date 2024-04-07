@@ -1,107 +1,21 @@
-#!/bin/bash
-
+#!/bin/bash -x
+rootd="${1:-/}"
 set -ex
 
-# Disable terminal ads
-sed -i 's/ENABLED=1/ENABLED=0/g' /etc/default/motd-news
-pro config set apt_news=false
+. /root/config/chroot
 
-# Disable apport bug reporting
-sed -i 's/enabled=1/enabled=0/g' /etc/default/apport
+LANG=C
 
-# Remove release upgrade motd
-rm -f /var/lib/ubuntu-release-upgrader/release-upgrade-available
-sed -i 's/Prompt=.*/Prompt=never/g' /etc/update-manager/release-upgrades
+_xchroot() {
+   # Prevent multiple chroots
+   if [ "$1" = "/" ]; then
+      shift;
+      "$@"
+   else
+      chroot "$@"
+   fi
+}
 
-# Let systemd create machine id on first boot
-rm -f /var/lib/dbus/machine-id
-true > /etc/machine-id 
-
-# Add video group for rockchip udev rules
-addgroup --system --quiet video
-
-# Remove some packages
-DEBIAN_FRONTEND=noninteractive apt-get --purge remove --assume-yes flash-kernel fwupd
-
-# Configure cloud-init for NoCloud
-mkdir -p /etc/cloud/cloud.cfg.d
-cat << EOF > /etc/cloud/cloud.cfg.d/99-fake_cloud.cfg
-datasource_list: [ NoCloud, None ]
-datasource:
-  NoCloud:
-    fs_label: CIDATA
-EOF
-
-# Wait for cloud-init to finish (creating users, etc.) before running getty
-mkdir -p /etc/systemd/system/cloud-config.service.d
-cat << EOF > /etc/systemd/system/cloud-config.service.d/getty-wait.conf
-[Unit]
-Before=getty.target
-EOF
-
-# Remove 120 second network delay
-mkdir -p /etc/systemd/system/systemd-networkd-wait-online.service.d/
-cat << EOF > /etc/systemd/system/systemd-networkd-wait-online.service.d/override.conf
-[Service]
-ExecStart=
-ExecStart=/lib/systemd/systemd-networkd-wait-online --timeout=10
-EOF
-
-# Add units for a 1GiB swapfile, generated on first boot
-cat << EOF > /lib/systemd/system/mkswap.service
-[Unit]
-Description=Create the default swapfile
-DefaultDependencies=no
-Requires=local-fs.target
-After=local-fs.target
-Before=swapfile.swap
-ConditionPathExists=!/swapfile
-
-[Service]
-Type=oneshot
-ExecStartPre=fallocate -l 1GiB /swapfile
-ExecStartPre=chmod 600 /swapfile
-ExecStart=mkswap /swapfile
-
-[Install]
-WantedBy=swap.target
-EOF
-
-cat << EOF > /lib/systemd/system/swapfile.swap
-[Unit]
-Description=The default swapfile
-
-[Swap]
-What=/swapfile
-EOF
-mkdir -p /lib/systemd/system/swap.target.wants
-ln -s ../mkswap.service /lib/systemd/system/swap.target.wants/
-ln -s ../swapfile.swap /lib/systemd/system/swap.target.wants/
- 
-# Set CPU governor to performance
-cat << EOF > /lib/systemd/system/cpu-governor-performance.service
-[Unit]
-Description=Set CPU governor to performance
-
-[Service]
-ExecStart=/usr/bin/bash -c 'echo performance | tee /sys/bus/cpu/devices/cpu*/cpufreq/scaling_governor > /dev/null || true'
-Type=oneshot
-
-[Install]
-WantedBy=default.target
-EOF
-systemctl enable cpu-governor-performance
-
-# Set GPU governor to performance
-cat << EOF > /lib/systemd/system/gpu-governor-performance.service
-[Unit]
-Description=Set GPU governor to performance
-
-[Service]
-ExecStart=/usr/bin/bash -c 'echo performance > /sys/devices/platform/fb000000.gpu/devfreq/fb000000.gpu/governor || true'
-Type=oneshot
-
-[Install]
-WantedBy=default.target
-EOF
-systemctl enable gpu-governor-performance
+echo FOOBAR
+DEBIAN_FRONTEND=noninteractive _xchroot "${rootd}" apt-get --purge remove --assume-yes flash-kernel
+echo FOOBAR
