@@ -9,7 +9,11 @@ jobs:
   kernel:
     runs-on: ubuntu-latest
     name: Build
-
+    strategy:
+      matrix:
+        project:
+          - preinstalled-desktop
+          - preinstalled-server
     steps:
       - name: Get more disk space
         uses: jlumbroso/free-disk-space@main
@@ -38,11 +42,11 @@ jobs:
 
       - name: Build
         shell: bash
-        run: sudo ./livecd-rootfs.sh && sudo ./build.sh 
+        run: sudo ./livecd-rootfs.sh && sudo ./build.sh ${{ matrix.project == 'preinstalled-desktop' && '--desktop' || matrix.project == 'preinstalled-server' && '--server' }}
         
       - name: Upload
         uses: actions/upload-artifact@v4.3.1
         with:
-          name: ubuntu-24.04-beta-preinstalled-server-arm64.rootfs
-          path: ./build/ubuntu-24.04-beta-preinstalled-server-arm64.rootfs.tar.xz
+          name: ubuntu-24.04-beta-${{ matrix.project }}-arm64-rootfs
+          path: ./build/ubuntu-24.04-beta-${{ matrix.project }}-arm64.rootfs.tar.xz
           if-no-files-found: error
