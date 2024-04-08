@@ -18,8 +18,7 @@ rm -f /var/lib/dbus/machine-id
 true > /etc/machine-id 
 
 # Add video group to new users
-sed -i 's/#EXTRA_GROUPS=.*/EXTRA_GROUPS="video"/g' /etc/adduser.conf
-sed -i 's/#ADD_EXTRA_GROUPS=.*/ADD_EXTRA_GROUPS=1/g' /etc/adduser.conf
+addgroup --system --quiet video
 
 # Remove some packages
 DEBIAN_FRONTEND=noninteractive apt-get --purge remove --assume-yes flash-kernel fwupd
