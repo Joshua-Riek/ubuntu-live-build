@@ -46,7 +46,7 @@ rm -rf $rootfs_dir/boot/grub
 
 snap_prepare $rootfs_dir
 
-for snap in core snapd lxd; do
+for snap in core22 snapd lxd; do
     SNAP_NO_VALIDATE_SEED=1 snap_preseed $rootfs_dir "${snap}" stable
 done
 
