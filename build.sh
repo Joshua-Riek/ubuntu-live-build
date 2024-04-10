@@ -44,6 +44,14 @@ setup_mountpoint $rootfs_dir
 env DEBIAN_FRONTEND=noninteractive chroot $rootfs_dir apt-get autoremove --purge --assume-yes
 rm -rf $rootfs_dir/boot/grub
 
+snap_prepare $rootfs_dir
+
+for snap in core snapd lxd; do
+    SNAP_NO_VALIDATE_SEED=1 snap_preseed $rootfs_dir "${snap}" stable
+done
+
+snap_validate_seed $rootfs_dir
+
 teardown_mountpoint $rootfs_dir
 
 (cd $rootfs_dir/ &&  tar -c --sort=name --xattrs *) | xz -3 -T0 > livecd.ubuntu-cpc.rootfs.tar.xz
