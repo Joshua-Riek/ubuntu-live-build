@@ -46,7 +46,7 @@ rm -rf $rootfs_dir/boot/grub
 
 snap_prepare $rootfs_dir
 
-for snap in core22 snapd lxd; do
+for snap in core22 snapd lxd snap-store; do
     SNAP_NO_VALIDATE_SEED=1 snap_preseed $rootfs_dir "${snap}" stable
 done
 
@@ -102,10 +102,6 @@ cp -rv ../config ./
 if [[ "${PROJECT}" == "ubuntu" ]]; then
 echo > config/seeded-snaps
 sed -i 's/libgl1-amber-dri//g' config/package-lists/livecd-rootfs.list.chroot_install
-else
-echo "core" > config/seeded-snaps
-echo "snapd" >> config/seeded-snaps
-echo "lxd" >> config/seeded-snaps
 fi
 
 lb build 

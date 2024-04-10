@@ -27,6 +27,7 @@ DEBIAN_FRONTEND=noninteractive apt-get --purge remove --assume-yes flash-kernel 
 
 # Specific ubuntu-image chroot configuration goes here.
 if [ "$SUBPROJECT" == "desktop-preinstalled" ]; then
+    DEBIAN_FRONTEND=noninteractive apt-get --purge remove --assume-yes cloud-init
     DEBIAN_FRONTEND=noninteractive apt-get install --assume-yes oem-config-gtk ubiquity-frontend-gtk ubiquity-slideshow-ubuntu libparted2t64 gstreamer1.0-rockchip1 chromium-browser libv4l-rkmpp
     # Default kernel cmdline
     echo "rootwait rw console=ttyS2,1500000 console=tty1 cgroup_enable=cpuset cgroup_memory=1 cgroup_enable=memory quiet splash plymouth.ignore-serial-consoles" > /etc/kernel/cmdline
