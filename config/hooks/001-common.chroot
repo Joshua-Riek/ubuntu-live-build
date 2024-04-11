@@ -31,7 +31,7 @@ if [ "$SUBPROJECT" == "desktop-preinstalled" ]; then
     DEBIAN_FRONTEND=noninteractive apt-get install --assume-yes oem-config-gtk cloud-initramfs-growroot ubiquity-frontend-gtk ubiquity-slideshow-ubuntu libparted2t64 gstreamer1.0-rockchip1 chromium-browser libv4l-rkmpp
     # Default kernel cmdline
     echo "rootwait rw console=ttyS2,1500000 console=tty1 cgroup_enable=cpuset cgroup_memory=1 cgroup_enable=memory quiet splash plymouth.ignore-serial-consoles" > /etc/kernel/cmdline
-systemctl enable ssh
+
     # Create files/dirs Ubiquity requires
     mkdir -p /var/log/installer
     touch /var/log/installer/debug
