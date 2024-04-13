@@ -8,3 +8,5 @@ openssh-server
 lm-sensors
 bluez
 htop
+openssh-server
+cloud-initramfs-growroot

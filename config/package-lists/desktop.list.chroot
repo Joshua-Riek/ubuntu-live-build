@@ -1,0 +1,9 @@
+#if SUBPROJECT desktop-preinstalled
+oem-config-gtk
+ubiquity-frontend-gtk
+ubiquity-slideshow-ubuntu
+libparted2t64
+gstreamer1.0-rockchip1
+chromium-browser
+libv4l-rkmpp
+#endif
