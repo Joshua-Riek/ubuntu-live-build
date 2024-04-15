@@ -8,3 +8,4 @@ openssh-server
 lm-sensors
 bluez
 htop
+fake-hwclock
