@@ -26,10 +26,6 @@ if [ -f /etc/default/motd-news ]; then
     sed -i 's/ENABLED=1/ENABLED=0/g' /etc/default/motd-news
 fi
 
-# Add video group to new users
-sed -i 's/#EXTRA_GROUPS=.*/EXTRA_GROUPS="video"/g' /etc/adduser.conf
-sed -i 's/#ADD_EXTRA_GROUPS=.*/ADD_EXTRA_GROUPS=1/g' /etc/adduser.conf
-
 # Override u-boot-menu config  
 mkdir -p /usr/share/u-boot-menu/conf.d
 cat << 'EOF' > /usr/share/u-boot-menu/conf.d/ubuntu.conf
@@ -66,3 +62,4 @@ apt-get -y purge flash-kernel fwupd
 # Update extlinux
 u-boot-update
 
+apt-get install -y oem-config-gtk ubiquity-frontend-gtk ubiquity-slideshow-ubuntu
