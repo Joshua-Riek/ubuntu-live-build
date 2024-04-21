@@ -14,43 +14,13 @@ while [ "$#" -gt 0 ]; do
     case "${1}" in
         -s|--server)
             export PROJECT=ubuntu-cpc
-                        name="server"
-
+            name="server"
             shift
             ;;
         -d|--desktop)
             export SUBPROJECT=desktop-preinstalled
             export PROJECT=ubuntu
             name="desktop"
-    cat << 'EOF' > ../config/hooks/001-tar.binary
-#!/bin/bash -ex
-# vi: ts=4 expandtab
-#
-# Generate the root directory/manifest for rootfs.tar.xz and squashfs
-
-if [ -n "$SUBARCH" ]; then
-    echo "Skipping rootfs build for subarch flavor build"
-    exit 0
-fi
-
-. config/functions
-
-rootfs_dir=rootfs.dir
-mkdir $rootfs_dir
-cp -a chroot/* $rootfs_dir
-
-setup_mountpoint $rootfs_dir
-
-env DEBIAN_FRONTEND=noninteractive chroot $rootfs_dir apt-get autoremove --purge --assume-yes
-rm -rf $rootfs_dir/boot/grub
-
-teardown_mountpoint $rootfs_dir
-
-(cd $rootfs_dir/ &&  tar -c --sort=name --xattrs *) | xz -3 -T0 > livecd.ubuntu-cpc.rootfs.tar.xz
-
-exit 99999
-EOF
-chmod +x ../config/hooks/001-tar.binary
             shift
             ;;
         -v|--verbose)
@@ -69,8 +39,8 @@ done
 
 export ARCH=arm64
 export SUITE=noble
-export IMAGEFORMAT=ext4
-export IMAGE_TARGETS=tarball
+export IMAGEFORMAT=none
+export IMAGE_TARGETS=none
 export EXTRA_PPAS="jjriek/rockchip jjriek/rockchip-multimedia jjriek/panfork-mesa"
 
 lb config \
@@ -97,14 +67,22 @@ echo "snapd/classic=stable" > config/seeded-snaps
 echo "core22/classic=stable" >> config/seeded-snaps
 echo "lxd/classic=stable" >> config/seeded-snaps
 
+echo "mali-g610-firmware" > config/package-lists/my.list.chroot
+echo "rockchip-multimedia-config" >> config/package-lists/my.list.chroot
+
+if [ "${PROJECT}" == "ubuntu" ]; then
+    echo "ubuntu-desktop-rockchip" >> config/package-lists/my.list.chroot
+    echo "oem-config-gtk" >> config/package-lists/my.list.chroot
+    echo "ubiquity-frontend-gtk" >> config/package-lists/my.list.chroot
+    echo "ubiquity-slideshow-ubuntu" >> config/package-lists/my.list.chroot
+    echo "gstreamer1.0-rockchip1" >> config/package-lists/my.list.chroot
+    echo "chromium-browser" >> config/package-lists/my.list.chroot
+    echo "libv4l-rkmpp" >> config/package-lists/my.list.chroot
+else
+    echo "ubuntu-server-rockchip" >> config/package-lists/my.list.chroot
+fi
 lb build 
-lb binary
-lb binary_chroot
-lb binary_rootfs
-lb binary_manifest
-lb binary_package-lists 
-lb binary_linux-image 
-lb binary_includes 
-lb binary_hooks
+
+(cd binary/ &&  tar -c --sort=name --xattrs *) | xz -3 -T0 > livecd.ubuntu-cpc.rootfs.tar.xz
 
 mv livecd.ubuntu-cpc.rootfs.tar.xz ubuntu-24.04-beta-preinstalled-$name-arm64.rootfs.tar.xz
