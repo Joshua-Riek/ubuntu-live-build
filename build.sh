@@ -41,7 +41,7 @@ export ARCH=arm64
 export SUITE=noble
 export IMAGEFORMAT=none
 export IMAGE_TARGETS=none
-export EXTRA_PPAS="jjriek/rockchip jjriek/rockchip-multimedia jjriek/panfork-mesa"
+export EXTRA_PPAS="jjriek/rockchip jjriek/rockchip-multimedia jjriek/panfork-mesa jjriek/wip"
 
 lb config \
 	--architecture arm64 \

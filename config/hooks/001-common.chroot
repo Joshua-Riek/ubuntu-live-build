@@ -4,6 +4,10 @@ set -ex
 
 . /root/config/chroot
 
+# Update localisation files
+locale-gen en_US.UTF-8
+update-locale LANG="en_US.UTF-8"
+
 # Disable terminal ads
 pro config set apt_news=false
 
@@ -20,6 +24,9 @@ true > /etc/machine-id
 
 # Disable grub
 rm -rf /boot/grub
+
+# Disable apparmor
+systemctl disable apparmor
 
 # Disable motd news
 if [ -f /etc/default/motd-news ]; then
