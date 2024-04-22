@@ -8,7 +8,7 @@ cd "$(dirname -- "$(readlink -f -- "$0")")"
 mkdir -p build/livecd-rootfs
 cd build/livecd-rootfs
 
-git clone https://git.launchpad.net/~jjriek/livecd-rootfs -b ubuntu-rockchip
+git clone https://github.com/Joshua-Riek/livecd-rootfs
 cd livecd-rootfs
 sudo apt-get -y build-dep .
 dpkg-buildpackage -us -uc
