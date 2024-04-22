@@ -137,6 +137,8 @@ EOF
 echo -n "rootwait rw console=ttyS2,1500000 console=tty1 cgroup_enable=cpuset cgroup_memory=1 cgroup_enable=memory" > /etc/kernel/cmdline
 
 if [ "$SUBPROJECT" == "desktop-preinstalled" ]; then
+    apt-get -y purge cloud-init
+
     mkdir -p /var/log/installer
     touch /var/log/installer/debug
     touch /var/log/syslog

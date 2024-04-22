@@ -41,7 +41,7 @@ export ARCH=arm64
 export SUITE=noble
 export IMAGEFORMAT=none
 export IMAGE_TARGETS=none
-export EXTRA_PPAS="jjriek/rockchip jjriek/rockchip-multimedia jjriek/panfork-mesa jjriek/wip"
+export EXTRA_PPAS="jjriek/rockchip jjriek/rockchip-multimedia jjriek/panfork-mesa"
 
 lb config \
 	--architecture arm64 \
@@ -78,6 +78,7 @@ if [ "${PROJECT}" == "ubuntu" ]; then
     echo "gstreamer1.0-rockchip1" >> config/package-lists/my.list.chroot
     echo "chromium-browser" >> config/package-lists/my.list.chroot
     echo "libv4l-rkmpp" >> config/package-lists/my.list.chroot
+    echo "localechooser-data" >> config/package-lists/my.list.chroot
 else
     echo "ubuntu-server-rockchip" >> config/package-lists/my.list.chroot
 fi
