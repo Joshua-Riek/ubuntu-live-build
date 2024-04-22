@@ -97,6 +97,18 @@ echo "snapd/classic=stable" > config/seeded-snaps
 echo "core22/classic=stable" >> config/seeded-snaps
 echo "lxd/classic=stable" >> config/seeded-snaps
 
+echo "mali-g610-firmware" > config/package-lists/my.list.chroot
+echo "rockchip-multimedia-config" >> config/package-lists/my.list.chroot
+
+if [ "${PROJECT}" == "ubuntu" ]; then
+    echo "ubuntu-desktop-rockchip" >> config/package-lists/my.list.chroot
+    echo "gstreamer1.0-rockchip1" >> config/package-lists/my.list.chroot
+    echo "chromium-browser" >> config/package-lists/my.list.chroot
+    echo "libv4l-rkmpp" >> config/package-lists/my.list.chroot
+else
+    echo "ubuntu-server-rockchip" >> config/package-lists/my.list.chroot
+fi
+
 lb build 
 lb binary
 lb binary_chroot
