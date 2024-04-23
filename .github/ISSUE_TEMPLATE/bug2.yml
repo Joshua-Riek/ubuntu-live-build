@@ -1,6 +1,6 @@
 name: Bu2g report
 description: Create a bug report if there is something
-title: ""
+title: "foobar"
 labels: [""]
 body:
   - type: markdown
