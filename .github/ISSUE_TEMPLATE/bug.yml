@@ -1,0 +1,54 @@
+name: Bug report
+description: Create a bug report if there is something
+title: ""
+labels: [""]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: |
+
+        Also tell us, what did you expect to happen?
+      placeholder: An error x ocurred when I did y!
+    validations:
+      required: true
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: How to reproduce?
+      description: |
+
+        Provide the command you ran or explain the steps you did.
+      placeholder: Tell us how you did it! E.g. the command you gave to the framework.
+    validations:
+      required: true
+  - type: dropdown
+    id: version
+    attributes:
+      label: Branch
+      description: |
+
+        Which branch are you using?
+      options:
+        - main (main development branch)
+        - other
+    validations:
+      required: true
+  - type: dropdown
+    id: host
+    attributes:
+      label: On which host OS are you running the build script and observing this problem?
+      multiple: false
+      options:
+        - Ubuntu 24.04 Noble
+        - Ubuntu 22.04 Jammy
+        - Debian 13 Trixie
+        - Debian 12 Bookworm
+        - Other
+    validations:
+      required: true
