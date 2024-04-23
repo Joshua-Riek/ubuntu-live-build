@@ -143,7 +143,7 @@ if [ "$SUBPROJECT" == "desktop-preinstalled" ]; then
     touch /var/log/installer/debug
     touch /var/log/syslog
     chown syslog:adm /var/log/syslog
-
+    ssh-keygen -A
     # Create the oem user account only if it doesn't already exist
     if ! id "oem" &>/dev/null; then
         /usr/sbin/useradd -d /home/oem -G adm,sudo -m -N -u 29999 oem
