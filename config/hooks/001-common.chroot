@@ -26,7 +26,7 @@ true > /etc/machine-id
 rm -rf /boot/grub
 
 # Disable apparmor
-systemctl disable apparmor
+systemctl mask apparmor
 
 # Disable motd news
 if [ -f /etc/default/motd-news ]; then
