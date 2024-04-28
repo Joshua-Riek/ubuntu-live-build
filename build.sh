@@ -85,4 +85,4 @@ fi
 
 lb build 
 
-(cd chroot/ &&  tar -p -c --sort=name --xattrs *) | xz -3 -T0 > ubuntu-24.04-beta-preinstalled-$name-arm64.rootfs.tar.xz
+(cd chroot/ &&  tar -p -c --sort=name --xattrs *) | xz -3 -T0 > ubuntu-24.04-preinstalled-$name-arm64.rootfs.tar.xz
