@@ -3,7 +3,7 @@ name: Build
 on:
   push:
     branches:
-      - 'main'
+      - 'jammy'
 
 jobs:
   kernel:
@@ -14,6 +14,9 @@ jobs:
         project:
           - preinstalled-desktop
           - preinstalled-server
+        suite:
+          - jammy
+          - noble
     steps:
       - name: Get more disk space
         uses: jlumbroso/free-disk-space@main
@@ -40,13 +43,17 @@ jobs:
           python3-distutils python3-pkg-resources swig libfdt-dev libpython3-dev dctrl-tools \
           live-build livecd-rootfs
 
+      - name: Build Docker 
+        shell: bash
+        run: docker build -t livecd-rootfs docker
+
       - name: Build
         shell: bash
-        run: sudo ./livecd-rootfs.sh && sudo ./build.sh ${{ matrix.project == 'preinstalled-desktop' && '--desktop' || matrix.project == 'preinstalled-server' && '--server' }}
+        run: docker run --privileged -v /dev:/dev --rm -v "$(pwd)":/opt livecd-rootfs bash ./build.sh ${{ matrix.project == 'preinstalled-desktop' && '--desktop' || matrix.project == 'preinstalled-server' && '--server' }} ${{ matrix.suite == 'jammy' && '--jammy' || matrix.suite == 'noble' && '--noble' }}
         
       - name: Upload
         uses: actions/upload-artifact@v4.3.1
         with:
-          name: ubuntu-24.04-${{ matrix.project }}-arm64-rootfs
-          path: ./build/ubuntu-24.04-${{ matrix.project }}-arm64.rootfs.tar.xz
+          name: ubuntu-${{ matrix.suite == 'jammy' && '22.04' || matrix.suite == 'noble' && '24.04' }}-${{ matrix.project }}-arm64-rootfs
+          path: ./build/ubuntu-${{ matrix.suite == 'jammy' && '22.04' || matrix.suite == 'noble' && '24.04' }}-${{ matrix.project }}-arm64.rootfs.tar.xz
           if-no-files-found: error
