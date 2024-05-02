@@ -29,13 +29,11 @@ while [ "$#" -gt 0 ]; do
         -j|--jammy)
             export SUITE=jammy
             version="22.04"
-            kernel="rockchip"
             shift
             ;;
         -n|--noble)
             export SUITE=noble
             version="24.04"
-            kernel="rockchip"
             shift
             ;;
         -v|--verbose)
@@ -73,7 +71,7 @@ lb config \
     --mirror-binary "http://ports.ubuntu.com" \
     --parent-mirror-binary "http://ports.ubuntu.com" \
     --keyring-packages ubuntu-keyring \
-    --linux-flavours "${kernel}"
+    --linux-flavours rockchip
 
 # Add chroot tweaks and archives
 cp ../001-tweaks.chroot config/hooks/
