@@ -75,6 +75,16 @@ if [ "$SUBPROJECT" == "desktop-preinstalled" ]; then
     echo -n "quiet splash plymouth.ignore-serial-consoles" >> /etc/kernel/cmdline
 fi
 
+# Mouse lag/stutter (missed frames) in Wayland sessions
+# https://bugs.launchpad.net/ubuntu/+source/mutter/+bug/1982560
+if [ "$SUITE" == "jammy" ]; then
+    (
+        echo "MUTTER_DEBUG_ENABLE_ATOMIC_KMS=0"
+        echo "MUTTER_DEBUG_FORCE_KMS_MODE=simple"
+        echo "CLUTTER_PAINT=disable-dynamic-max-render-time"
+    ) >> /etc/environment
+fi
+
 # Remove misc packages
 apt-get -y purge flash-kernel fwupd 
 
