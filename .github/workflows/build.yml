@@ -3,7 +3,7 @@ name: Build
 on:
   push:
     branches:
-      - 'jammy'
+      - 'main'
 
 jobs:
   kernel:
