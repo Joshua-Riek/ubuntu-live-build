@@ -29,7 +29,7 @@ while [ "$#" -gt 0 ]; do
         -j|--jammy)
             export SUITE=jammy
             version="22.04"
-            kernel="rockchip-5.10"
+            kernel="rockchip"
             shift
             ;;
         -n|--noble)
