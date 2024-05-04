@@ -53,7 +53,7 @@ done
 export ARCH=arm64
 export IMAGEFORMAT=none
 export IMAGE_TARGETS=none
-export EXTRA_PPAS="jjriek/rockchip jjriek/rockchip-multimedia jjriek/panfork-mesa"
+export EXTRA_PPAS="jjriek/rockchip jjriek/rockchip-multimedia"
 
 # Populate the configuration directory for live build
 lb config \
@@ -89,8 +89,8 @@ sed -i 's/libgl1-amber-dri//g' config/package-lists/livecd-rootfs.list.chroot_in
 
 # Generic packages to install
 (
-    echo "mali-g610-firmware"
     echo "rockchip-multimedia-config"
+    echo "software-properties-common"
     echo "linux-firmware"
 ) > config/package-lists/my.list.chroot
 
