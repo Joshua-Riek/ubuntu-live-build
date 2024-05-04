@@ -4,10 +4,6 @@ set -ex
 
 . /root/config/chroot
 
-# Update localisation files
-locale-gen en_US.UTF-8
-update-locale LANG="en_US.UTF-8"
-
 # Disable terminal ads
 pro config set apt_news=false
 
