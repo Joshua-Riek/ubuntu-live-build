@@ -60,9 +60,11 @@ if [ "$SUBPROJECT" == "desktop-preinstalled" ]; then
         /usr/sbin/oem-config-prepare --quiet
         touch "/var/lib/oem-config/run"
     fi
-
-    # Create host ssh keys (normally cloud-init does this on boot)
-    ssh-keygen -A
+    
+    # Create host ssh keys
+    if [ "$LB_DISTRIBUTION" == "jammy" ]; then
+        ssh-keygen -A
+    fi
 
     # Enable wayland session
     sed -i 's/#WaylandEnable=false/WaylandEnable=true/g' /etc/gdm3/custom.conf
@@ -73,7 +75,7 @@ fi
 
 # Mouse lag/stutter (missed frames) in Wayland sessions
 # https://bugs.launchpad.net/ubuntu/+source/mutter/+bug/1982560
-if [ "$SUITE" == "jammy" ]; then
+if [ "$LB_DISTRIBUTION" == "jammy" ]; then
     (
         echo "MUTTER_DEBUG_ENABLE_ATOMIC_KMS=0"
         echo "MUTTER_DEBUG_FORCE_KMS_MODE=simple"
