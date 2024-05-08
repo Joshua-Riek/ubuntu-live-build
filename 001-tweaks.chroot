@@ -73,14 +73,20 @@ if [ "$SUBPROJECT" == "desktop-preinstalled" ]; then
     echo -n "quiet splash plymouth.ignore-serial-consoles" >> /etc/kernel/cmdline
 fi
 
-# Mouse lag/stutter (missed frames) in Wayland sessions
-# https://bugs.launchpad.net/ubuntu/+source/mutter/+bug/1982560
 if [ "$LB_DISTRIBUTION" == "jammy" ]; then
+    # Mouse lag/stutter (missed frames) in Wayland sessions
+    # https://bugs.launchpad.net/ubuntu/+source/mutter/+bug/1982560
     (
         echo "MUTTER_DEBUG_ENABLE_ATOMIC_KMS=0"
         echo "MUTTER_DEBUG_FORCE_KMS_MODE=simple"
         echo "CLUTTER_PAINT=disable-dynamic-max-render-time"
     ) >> /etc/environment
+
+    # Realtek 8811CU/8821CU usb modeswitch support
+    cp /lib/udev/rules.d/40-usb_modeswitch.rules /etc/udev/rules.d/40-usb_modeswitch.rules
+    sed '/LABEL="modeswitch_rules_end"/d' -i /etc/udev/rules.d/40-usb_modeswitch.rules
+    echo 'ATTR{idVendor}=="0bda", ATTR{idProduct}=="1a2b", RUN+="/usr/sbin/usb_modeswitch -K -v 0bda -p 1a2b"' >> /etc/udev/rules.d/40-usb_modeswitch.rules
+    echo 'LABEL="modeswitch_rules_end"' >> /etc/udev/rules.d/40-usb_modeswitch.rules
 fi
 
 # Remove misc packages
