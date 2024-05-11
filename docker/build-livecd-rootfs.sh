@@ -7,7 +7,7 @@ tmp_dir=$(mktemp -d)
 cd "${tmp_dir}" || exit 1
 
 # Clone the livecd rootfs fork
-git clone https://github.com/Joshua-Riek/livecd-rootfs -b upstream
+git clone https://github.com/Joshua-Riek/livecd-rootfs
 cd livecd-rootfs || exit 1
 
 # Install build deps
