@@ -62,9 +62,7 @@ if [ "$SUBPROJECT" == "desktop-preinstalled" ]; then
     fi
     
     # Create host ssh keys
-    if [ "$LB_DISTRIBUTION" == "jammy" ]; then
-        ssh-keygen -A
-    fi
+    ssh-keygen -A
 
     # Enable wayland session
     sed -i 's/#WaylandEnable=false/WaylandEnable=true/g' /etc/gdm3/custom.conf
