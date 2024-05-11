@@ -1,8 +1,5 @@
 #!/bin/bash
 
-set -eE 
-trap 'echo EError: in $0 on line $LINENO' ERR
-
 if [ "$(id -u)" -ne 0 ]; then 
     echo "Please run as root"
     exit 1
