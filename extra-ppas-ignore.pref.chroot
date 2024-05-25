@@ -1,8 +1,0 @@
-Package: oem-*
-Pin: release o=LP-PPA-jjriek-rockchip-multimedia
-Pin-Priority: -1
-
-Package: ubiquity*
-Pin: release o=LP-PPA-jjriek-rockchip-multimedia
-Pin-Priority: -1
-

@@ -73,9 +73,30 @@ lb config \
     --keyring-packages ubuntu-keyring \
     --linux-flavours rockchip
 
-# Add chroot tweaks and archives
-cp ../extra-ppas.pref.chroot config/archives/
-cp ../extra-ppas-ignore.pref.chroot config/archives/
+# Pin rockchip package archives
+(
+    echo "Package: *"
+    echo "Pin: release o=LP-PPA-jjriek-rockchip"
+    echo "Pin-Priority: 1001"
+    echo ""
+    echo "Package: *"
+    echo "Pin: release o=LP-PPA-jjriek-rockchip-multimedia"
+    echo "Pin-Priority: 1001"
+) > config/archives/extra-ppas.pref.chroot
+
+if [ "$SUITE" == "noble" ]; then
+    # Ignore custom ubiquity package (mistake i made, uploaded to wrong ppa)
+    (
+        echo "Package: oem-*"
+        echo "Pin: release o=LP-PPA-jjriek-rockchip-multimedia"
+        echo "Pin-Priority: -1"
+        echo ""
+        echo "Package: ubiquity*"
+        echo "Pin: release o=LP-PPA-jjriek-rockchip-multimedia"
+        echo "Pin-Priority: -1"
+
+    ) > config/archives/extra-ppas-ignore.pref.chroot
+fi
 
 sed -i 's/libgl1-amber-dri//g' config/package-lists/livecd-rootfs.list.chroot_install
 
