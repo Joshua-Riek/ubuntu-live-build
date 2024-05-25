@@ -74,7 +74,6 @@ lb config \
     --linux-flavours rockchip
 
 # Add chroot tweaks and archives
-cp ../001-tweaks.chroot config/hooks/
 cp ../extra-ppas.pref.chroot config/archives/
 cp ../extra-ppas-ignore.pref.chroot config/archives/
 
