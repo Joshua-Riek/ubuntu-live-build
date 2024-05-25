@@ -18,7 +18,7 @@ apt-get build-dep . -y
 dpkg-buildpackage -us -uc
 
 # Install the custom livecd rootfs package
-apt-get install ../livecd-rootfs_*.deb --assume-yes --allow-downgrades 
+apt-get install ../livecd-rootfs_*.deb --assume-yes --allow-downgrades --allow-change-held-packages
 dpkg -i ../livecd-rootfs_*.deb
 apt-mark hold livecd-rootfs
 
