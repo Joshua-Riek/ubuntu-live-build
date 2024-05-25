@@ -57,11 +57,11 @@ export EXTRA_PPAS="jjriek/rockchip jjriek/rockchip-multimedia"
 
 # Populate the configuration directory for live build
 lb config \
-	--architecture arm64 \
-	--bootstrap-qemu-arch arm64 \
-	--bootstrap-qemu-static /usr/bin/qemu-aarch64-static \
-	--archive-areas "main restricted universe multiverse" \
-	--parent-archive-areas "main restricted universe multiverse" \
+    --architecture arm64 \
+    --bootstrap-qemu-arch arm64 \
+    --bootstrap-qemu-static /usr/bin/qemu-aarch64-static \
+    --archive-areas "main restricted universe multiverse" \
+    --parent-archive-areas "main restricted universe multiverse" \
     --mirror-bootstrap "http://ports.ubuntu.com" \
     --parent-mirror-bootstrap "http://ports.ubuntu.com" \
     --mirror-chroot-security "http://ports.ubuntu.com" \
