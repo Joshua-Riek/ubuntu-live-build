@@ -1,7 +1,7 @@
 name: Bu2g report
 description: Create a bug report if there is something
 title: "foobar"
-labels: [""]
+labels: ["Bug"]
 body:
   - type: markdown
     attributes:
@@ -23,32 +23,17 @@ body:
       label: How to reproduce?
       description: |
 
-        Provide the command you ran or explain the steps you did.
+        Provide a list of steps to reproduce the behavior.
       placeholder: Tell us how you did it! E.g. the command you gave to the framework.
-    validations:
-      required: true
-  - type: dropdown
-    id: version
-    attributes:
-      label: Branch
-      description: |
-
-        Which branch are you using?
-      options:
-        - main (main development branch)
-        - other
     validations:
       required: true
   - type: dropdown
     id: host
     attributes:
-      label: On which host OS are you running the build script and observing this problem?
+      label: Which Operating System did this problem occur on?
       multiple: false
       options:
-        - Ubuntu 24.04 Noble
-        - Ubuntu 22.04 Jammy
-        - Debian 13 Trixie
-        - Debian 12 Bookworm
-        - Other
+        - Ubuntu 22.04 LTS (Jammy Jellyfish)
+        - Ubuntu 24.04 LTS (Noble Nombat)
     validations:
       required: true
