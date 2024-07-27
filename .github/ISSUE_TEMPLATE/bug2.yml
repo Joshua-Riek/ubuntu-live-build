@@ -28,12 +28,26 @@ body:
     validations:
       required: true
   - type: dropdown
-    id: host
+    id: os
     attributes:
-      label: Which Operating System did this problem occur on?
+      label: Operating System
       multiple: false
       options:
         - Ubuntu 22.04 LTS (Jammy Jellyfish)
         - Ubuntu 24.04 LTS (Noble Nombat)
+    validations:
+      required: true
+  - type: textarea
+    id: kernel
+    attributes:
+      label: Kernel version
+      placeholder: Output of `uname -a`
+    validations:
+      required: true
+  - type: textarea
+    id: board
+    attributes:
+      label: SBC Model
+      placeholder: Output of `cat /proc/device-tree/model`
     validations:
       required: true
