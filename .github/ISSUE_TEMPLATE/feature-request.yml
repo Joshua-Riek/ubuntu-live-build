@@ -1,0 +1,16 @@
+name: Feature Request
+description: Suggest a feature that you would like to see implemented.
+title: "enhancement: "
+labels: ["enhancement"]
+assignees: "Joshua-Riek"
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to fill out a feature reqest.
+  - type: textarea
+    id: description
+    attributes:
+      label: What new feature would you like to have?
+    validations:
+      required: true
