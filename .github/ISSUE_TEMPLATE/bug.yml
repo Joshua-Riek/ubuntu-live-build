@@ -1,7 +1,8 @@
-name: Bu2g report
-description: Create a bug report if there is something not working
+name: Bug Report
+description: Create a bug report if there is something not working correctly.
 title: "bug: "
 labels: ["bug"]
+assignees: "Joshua-Riek"
 body:
   - type: textarea
     id: description
