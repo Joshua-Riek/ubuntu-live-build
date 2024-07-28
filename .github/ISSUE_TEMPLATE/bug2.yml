@@ -14,30 +14,30 @@ body:
     id: reproduce
     attributes:
       label: How to Reproduce
-      placeholder: Please provide a list of steps to reproduce the behavior.
+      placeholder: Please provide a list of steps to reproduce the bug.
+    validations:
+      required: true
+  - type: input
+    id: kernel
+    attributes:
+      label: Kernel Version
+      placeholder: Please provide the output of `uname -a`
+    validations:
+      required: true
+  - type: input
+    id: model
+    attributes:
+      label: SBC Model
+      placeholder: Please provide the output `cat /proc/device-tree/model`
     validations:
       required: true
   - type: dropdown
-    id: os
+    id: ubuntu
     attributes:
       label: Ubuntu Version
       multiple: false
       options:
         - Ubuntu 22.04 LTS (Jammy Jellyfish)
         - Ubuntu 24.04 LTS (Noble Nombat)
-    validations:
-      required: true
-  - type: input
-    id: kernel
-    attributes:
-      label: Kernel version
-      placeholder: Please provide the output of `uname -a`
-    validations:
-      required: true
-  - type: input
-    id: board
-    attributes:
-      label: SBC Model
-      placeholder: Please provide the output `cat /proc/device-tree/model`
     validations:
       required: true
