@@ -1,53 +1,43 @@
 name: Bu2g report
-description: Create a bug report if there is something
-title: "foobar"
-labels: ["Bug"]
+description: Create a bug report if there is something not working
+title: "bug: "
+labels: ["bug"]
 body:
-  - type: markdown
-    attributes:
-      value: |
-        Thank you
   - type: textarea
-    id: what-happened
+    id: description
     attributes:
-      label: What happened?
-      description: |
-
-        Also tell us, what did you expect to happen?
-      placeholder: An error x ocurred when I did y!
+      label: Bug Description
+      placeholder: Please describe the bug encountered.
     validations:
       required: true
   - type: textarea
     id: reproduce
     attributes:
-      label: How to reproduce?
-      description: |
-
-        Provide a list of steps to reproduce the behavior.
-      placeholder: Tell us how you did it! E.g. the command you gave to the framework.
+      label: How to Reproduce
+      placeholder: Please provide a list of steps to reproduce the behavior.
     validations:
       required: true
   - type: dropdown
     id: os
     attributes:
-      label: Operating System
+      label: Ubuntu Version
       multiple: false
       options:
         - Ubuntu 22.04 LTS (Jammy Jellyfish)
         - Ubuntu 24.04 LTS (Noble Nombat)
     validations:
       required: true
-  - type: textarea
+  - type: input
     id: kernel
     attributes:
       label: Kernel version
-      placeholder: Output of `uname -a`
+      placeholder: Please provide the output of `uname -a`
     validations:
       required: true
-  - type: textarea
+  - type: input
     id: board
     attributes:
       label: SBC Model
-      placeholder: Output of `cat /proc/device-tree/model`
+      placeholder: Please provide the output `cat /proc/device-tree/model`
     validations:
       required: true
