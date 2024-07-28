@@ -4,10 +4,6 @@ title: "enhancement: "
 labels: ["enhancement"]
 assignees: "Joshua-Riek"
 body:
-  - type: markdown
-    attributes:
-      value: |
-        Thanks for taking the time to fill out a feature reqest.
   - type: textarea
     id: description
     attributes:
