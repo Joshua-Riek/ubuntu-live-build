@@ -4,6 +4,12 @@ title: "bug: "
 labels: ["bug"]
 assignees: "Joshua-Riek"
 body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to fill out this bug report!
+
+        Please include information about your system such as the kernel version, SBC model, and operating system. Additionally provide a list of steps to reproduce the bug. 
   - type: textarea
     id: what-happened
     attributes:
@@ -16,7 +22,7 @@ body:
     id: kernel
     attributes:
       label: Kernel version
-      description: What version of the Linux kernel are you running? (use `uname -r` to get a version string)
+      description: What version of the Linux kernel are you running? (use `uname -r` to get the version string)
       placeholder: 6.1.0-1020-rockchip
     validations:
       required: true
@@ -42,5 +48,5 @@ body:
     id: logs
     attributes:
       label: Relevant log output
-      description: Please copy and paste any relevant log output. This will be automatically formatted into code, so no need for backticks.
+      description: Please copy and paste any relevant log output (such as dmesg). This will be automatically formatted into code, so no need for backticks.
       render: shell
